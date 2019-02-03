@@ -45,20 +45,22 @@ public class MySmsService extends Service {
 
         Log.d(TAG,"in service");
 
-        if(intent.hasExtra("newSmsObject")){
-            Sms sms = (Sms)intent.getSerializableExtra("newSmsObject");
-            Log.d(TAG,"in service sms object exists  "+sms.toString());
+        if(intent!=null) {
+            if (intent.hasExtra("newSmsObject")) {
+                Sms sms = (Sms) intent.getSerializableExtra("newSmsObject");
+                Log.d(TAG, "in service sms object exists  " + sms.toString());
 
 
-            Helper.getInstance(this).saveFromNotiFlag(true);
-            if (MainActivity.active) {
-                updateSmsList(getApplicationContext(),sms);
-            } else {
-                updateSmsList(getApplicationContext(),sms);
-                showNotification(getApplicationContext(),sms);
+                Helper.getInstance(this).saveFromNotiFlag(true);
+                if (MainActivity.active) {
+                    updateSmsList(getApplicationContext(), sms);
+                } else {
+                    updateSmsList(getApplicationContext(), sms);
+                    showNotification(getApplicationContext(), sms);
+
+                }
 
             }
-
         }
         return super.onStartCommand(intent, flags, startId);
 
